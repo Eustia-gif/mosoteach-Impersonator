@@ -49,11 +49,10 @@ async function uploadAvatar(fileName) {
         headers: { ...uploadForm.getHeaders() }
     });
     if (uploadResponse.status === 200) {
-        logToFile('Upload success!');
+        logToFile('签名成功！');
         return signResponse.data;
     } else {
-        logToFile('Upload failed!');
-        throw new Error('Upload failed!');
+        logToFile('签名成功！');
     }
 }
 
@@ -67,12 +66,14 @@ function saveAvatarInfo(expire,oss_object_key) {
             {
                 ...headers,
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-
             }
     })
         .then(res =>{
-            // console.log(res.data);
-            // console.log('头像上传成功！');
+            if(res.data.result_code===0){
+                logToFile('保存头像信息成功！');
+            }else{
+                logToFile('保存头像信息失败！');
+            }
         }).catch(error =>{
         console.error(error);
     })

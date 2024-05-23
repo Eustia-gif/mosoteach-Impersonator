@@ -6,16 +6,11 @@ const { Worker } = require('worker_threads');
 async function init(tokens) {
     tokens.forEach((token, index) => {
         const worker = new Worker('./task/worker.js', { workerData: token });
-        worker.on('message', (message) => {
-            logToFile(`Message from worker ${index + 1}: ${message}`);
+        worker.on('message', () => {
+            logToFile(`message from worker ${index + 1}`);
         });
-        worker.on('error', (error) => {
-            logToFile(`Error in worker ${index + 1}:`, error);
-        });
-        worker.on('exit', (code) => {
-            if (code !== 0) {
-                logToFile(`Worker ${index + 1} stopped with exit code ${code}`);
-            }
+        worker.on('error', () => {
+            logToFile(`error in worker ${index + 1}`);
         });
     });
 }

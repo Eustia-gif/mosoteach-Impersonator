@@ -4,7 +4,7 @@ const api = require("./api.js");
 let headers = require("./apiData/headers.js"); // 导入headers.apiData
 const global = require("./apiData/cookie.js"); // 导入global.apiData
 const querystring = require('querystring');
-
+const LogToFile = require('../utils/logUtil.js');
 /**
  * 更新个人信息
  * @param info
@@ -22,10 +22,9 @@ function updateInfo(info) {
         })
         .then(response => {
             if (response.data.result_code===401) {
-                console.log('未登录！');
+                LogToFile('未登入或者token过期');
             }else if(response.data.result_code===0){
-                // console.log('更新成功！');
-                // console.log(response.data);
+                LogToFile('更新个人信息成功！');
             }
         })
         .catch(error => {

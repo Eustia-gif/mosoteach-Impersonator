@@ -11,7 +11,6 @@ const logToFile = require("../utils/logUtil.js");
  * @returns {Promise<string>}
  */
 async function login(token) {
-    try {
         const loginApi = api.loginApi.replace(0, token);
         const r = await axios.post(loginApi);
         // 从响应头中获取cookie数组
@@ -27,10 +26,6 @@ async function login(token) {
             logToFile('登入失败！');
             throw new Error('登入失败！');
         }
-    } catch (err) {
-        logToFile('Error making request:', err);
-        throw err;
-    }
 }
 
 module.exports = login;

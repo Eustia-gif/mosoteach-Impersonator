@@ -10,7 +10,7 @@ const logToFile = require("../utils/logUtil.js");
 function getClazz(){
     return axios.post(api.myJoinClazzApi, {},{ headers: headers})
         .then(response => {
-            logToFile('获取我的班课成功！')
+            logToFile('获取我的班课成功！'+'\n'+JSON.stringify(response.data));
             return response.data;
         })
         .catch(error => {

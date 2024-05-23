@@ -8,9 +8,6 @@ const logToFile = require('./logUtil.js');
  * @param response
  */
 function imgDownLoadUtil(response) {
-    // 读取list_member.json文件
-    // const filePath = path.join(__dirname, response);    const data = fs.readFileSync(filePath, 'utf8');
-    // const jsonData = JSON.parse(data);
     response.data.member_data.data.forEach(async (member) => {
         const url = member.original_full_avatar_url;
         const studentNo = member.student_no;
@@ -28,7 +25,7 @@ function imgDownLoadUtil(response) {
         // 保存到本地
         const imgPath = path.join(dirPath, `${studentNo}.jpg`);
         fs.writeFileSync(imgPath, buffer);
-        logToFile(`图片保存完成: ../static/img/${studentNo}.jpg`);
+        logToFile(`图片保存完成: ${path.resolve(imgPath)}`);
     });
 }
 module.exports = imgDownLoadUtil;
